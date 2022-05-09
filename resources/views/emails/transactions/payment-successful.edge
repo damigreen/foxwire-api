@@ -1,0 +1,15 @@
+@layout('emails/layout')
+
+@section('body')
+<div style="padding: 60px 70px; border-top: 1px solid rgba(0,0,0,0.05);">
+  <h1 style="margin-top: 0px;">Hi {{ name }},</h1>
+  <div style="color: #636363; font-size: 14px;">You Resido wallet has been successfully credited with <b>{{ creditFormat }}</b> <br /><br />
+    Wallet balance for {{ residenceName }} is now <b>{{ newBalanceFormat }}</b>
+
+    <div style="color: #636363; font-size: 14px; margin-top: 30px;">If you did not make any transaction with us,
+      pelase ignore this email.
+      <br><br>Thanks,<br>Resido team</div>
+    @include('emails/partials/help')
+  </div>
+</div>
+@endsection

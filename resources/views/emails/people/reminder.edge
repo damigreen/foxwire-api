@@ -1,0 +1,13 @@
+@layout('emails/layout')
+
+@section('body')
+<div style="padding: 60px 70px; border-top: 1px solid rgba(0,0,0,0.05);">
+  <h1 style="margin-top: 0px;">Hi</h1>
+  <div style="color: #636363; font-size: 14px;">
+    <p>
+      Dear {{ resident }} your subscription plan for {{ name }} will automatically be renewed on {{ date }}. Please ensure your account is funded to cover your subscription charge of ₦{{ amount }}. 
+    </p>
+  </div>
+  @include('emails/partials/help')
+</div>
+@endsection

@@ -1,0 +1,11 @@
+@layout('emails/layout')
+
+@section('body')
+<div style="padding: 60px 70px; border-top: 1px solid rgba(0,0,0,0.05);">
+  <h1 style="margin-top: 0px;">Hi {{ user.name }},</h1>
+  <div style="color: #636363; font-size: 14px;">A new request <b>{{ requestName }}</b> has been made in <b> {{ residence }}</b>
+      <br><br>Thanks,<br>Resido team</div>
+    @include('emails/partials/help')
+  </div>
+</div>
+@endsection

@@ -1,0 +1,13 @@
+@layout('emails/layout')
+
+@section('body')
+<div style="padding: 60px 70px; border-top: 1px solid rgba(0,0,0,0.05);">
+  <h1 style="margin-top: 0px;">Hi</h1>
+  <div style="color: #636363; font-size: 14px;">
+    <p>
+      Dear {{ resident }} your Resido wallet balance is running low – please top up soon to ensure you can continue to enjoy our services. 
+    </p>
+  </div>
+  @include('emails/partials/help')
+</div>
+@endsection
