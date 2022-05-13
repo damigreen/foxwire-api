@@ -24,7 +24,7 @@ export default class LoginValidator {
    *    ```
    */
   public schema = schema.create({
-    username: schema.string(),
+    uniq_id: schema.string(),
     password: schema.string(),
   })
 
