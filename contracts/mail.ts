@@ -11,6 +11,5 @@ declare module '@ioc:Adonis/Addons/Mail' {
   interface MailersList {
     smtp: MailDrivers['smtp'],
     mailgun: MailDrivers['mailgun'],
-    sender: String
   }
 }

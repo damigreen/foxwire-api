@@ -8,7 +8,7 @@
 import Env from '@ioc:Adonis/Core/Env'
 import { MailConfig } from '@ioc:Adonis/Addons/Mail'
 
-const mailConfig: MailConfig = {
+const mailConfig: MailConfig & { sender: string } = {
   /*
   |--------------------------------------------------------------------------
   | Default mailer
