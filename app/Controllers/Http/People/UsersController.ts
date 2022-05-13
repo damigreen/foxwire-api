@@ -27,21 +27,8 @@ export default class UsersController {
 
     async store({ request, response }: HttpContextContract) {
         const payload = await request.validate(StoreValidator);
-        // const { name, gender, email, password, phone, roles } = payload;
 
         const user = await new Create().handle(payload)
-
-
-        // TODO
-        // create role user db relationship
-        // sync relatiionship
-
-
-        // TODO
-        // send welcome mail and
-        // Send email to activate account
-        // click on login link to activate
-
 
         return response.json({
             status: true,
@@ -91,7 +78,6 @@ export default class UsersController {
             .orWhere("phone", params.id)
             .orWhere("email", params.id)
             .firstOrFail()
-
 
         await user.delete();
 
