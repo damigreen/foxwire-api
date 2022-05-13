@@ -21,11 +21,12 @@
 import Route from '@ioc:Adonis/Core/Route'
 
 Route.get('/', async ({ view }) => {
-  view.render("view/email/people/welcome", { user: { email: "fashfired@gmail.com", phone: "07061935742" } })
+  const html = view.render("emails/people/welcome", { user: { email: "fashfired@gmail.com", phone: "07061935742" } })
   // console.log(
   //   true
   // );
-  return { message: 'God is good' }
+  // return { message: 'God is good' }
+  return html;
 })
 
 Route.group(() => {
