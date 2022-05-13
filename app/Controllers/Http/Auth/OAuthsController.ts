@@ -1,6 +1,3 @@
-// import { Exception } from '@adonisjs/core/build/standalone';
-// import { validator, schema } from '@ioc:Adoni    s/Core/Validator'
-// import CtxExtendContract from "Contracts/ctxExtend";
 import User from "App/Models/User";
 import Hash from '@ioc:Adonis/Core/Hash'
 import LoginValidator from 'App/Validators/Auth/LoginValidator';
@@ -11,14 +8,14 @@ import { Exception } from "@poppinss/utils";
 class OAuthsController {
     async login({ auth, request, response }) {
         const payload = await request.validate(LoginValidator);
-        const { username, password } = payload
+        const { uniq_id, password } = payload
 
         let token
         try {
             const user = await User.query()
                 .where("active", true)
-                .where("email", username)
-                .orWhere("username", username)
+                .where("email", uniq_id)
+                .orWhere("username", uniq_id)
                 .firstOrFail();
 
             // Verify password
@@ -26,10 +23,10 @@ class OAuthsController {
                 return response.badRequest('Invalid credentials')
             }
 
-            token = await auth.use('api').attempt(username, password);
+            token = await auth.use('api').attempt(uniq_id, password);
         } catch (error) {
-            throw new Exception("user account has been suspended")
             console.log(error);
+            throw new Exception("user account has been suspended")
         }
 
         response.json({
