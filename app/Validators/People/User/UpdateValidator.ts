@@ -25,12 +25,9 @@ export default class UpdateValidator {
    */
   public schema = schema.create({
     name: schema.string.optional(),
-    email: schema.string.optional({}, [rules.requiredIfNotExists('phone'), rules.email()]),
-    phone: schema.string.optional({}, [rules.requiredIfNotExists('email'), rules.mobile(), rules.unique({
-      table: 'users',
-      column: 'email',
-      caseInsensitive: true,
-    })]),
+    email: schema.string.optional(),
+    gender: schema.string.optional(),
+    phone: schema.string.optional(),
     password: schema.string.optional(),
     username: schema.string.optional(),
     active: schema.boolean.optional(),

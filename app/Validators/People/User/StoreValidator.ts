@@ -1,8 +1,9 @@
 import { schema, rules } from '@ioc:Adonis/Core/Validator'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
+
 export default class StoreValidator {
-  constructor(protected ctx: HttpContextContract) {}
+  constructor(protected ctx: HttpContextContract) { }
 
   /*
    * Define schema to validate the "shape", "type", "formatting" and "integrity" of data.
@@ -25,8 +26,9 @@ export default class StoreValidator {
    */
   public schema = schema.create({
     name: schema.string(),
+    gender: schema.string.optional(),
     email: schema.string({}, [rules.requiredIfNotExists('phone'), rules.email()]),
-    phone: schema.string({}, [rules.requiredIfNotExists('email'), rules.mobile(), rules.unique({
+    phone: schema.string({}, [rules.requiredIfNotExists('email'), rules.mobile({ locales: ["en-NG", "en-US"] }), rules.unique({
       table: 'users',
       column: 'email',
       caseInsensitive: true,
