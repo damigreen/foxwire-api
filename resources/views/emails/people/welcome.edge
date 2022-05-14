@@ -1,46 +1,16 @@
 @layout('emails/layout')
 
-{{--  delete password text  --}}
-
 @section('body')
 <div style="padding: 60px 70px; border-top: 1px solid rgba(0,0,0,0.05);">
   <h1 style="margin-top: 0px;">Welcome to Foxwire</h1>
-  <div style="color: #636363; font-size: 14px;">
-    <p style="line-height: 125%; font-size: 14px;">Thank you for joining us at Foxwire, we hope you have a great time with us while we help you make the best financial decisions</p>
-  </div>
-  <div style="border: 2px solid #4B72FA; padding: 40px; margin: 40px 0px;">
-    <h4
-      style="margin-bottom: 20px; margin-top: 0px; font-size: 18px; display: inline-block; border-bottom: 1px dotted #111;">
-      Login Details</h4>
-    <table style="width: 100%;">
-      @if(user.email)
-        <tr>
-          <td style="padding-left: 30px; border-bottom: 1px solid rgba(0,0,0,0.05);">
-            <div style="font-weight: bold; color: #000; font-size: 16px;">Email
-            </div>
-            <div style="font-size: 14px; color: #B8B8B8;">{{ user.email }}</div>
-          </td>
-        </tr>
-      @endif
-      @if(user.phone)
-        <tr>
-          <td style="padding-left: 30px; border-bottom: 1px solid rgba(0,0,0,0.05);">
-            <div style="font-weight: bold; color: #000; font-size: 16px;">Phone
-            </div>
-            <div style="font-size: 14px; color: #B8B8B8;">{{ user.phone }}</div>
-          </td>
-        </tr> 
-      @endif
-    </table>
-    <table style="width: 100%; border-top: 1px solid #eee">
-      <tr>
-        <td style="text-align: center; padding-left: 20px;">
-          <a href="{{ webAppUrl }}"
-            style="padding: 8px 20px; background-color: #4B72FA; color: #fff; font-weight: bolder; font-size: 16px; display: inline-block; margin: 10px 0px; text-decoration: none;">Sign
-            In</a>
-        </td>
-      </tr>
-    </table>
+  <div style="border: 2px solid #4EAF2F; padding: 40px; margin: 40px 0px; color: #636363; font-size: 14px;">
+    <p style="line-height: 125%; font-size: 14px;"><b>Thank you for joining us at Foxwire</b><br><br>
+      we hope you have a great time with us while we help you make the best financial decisions<br><br>
+      Please verify your email address in order to access your Foxwire account<br><br>
+      We sent an email to <b>{{ user.email }}</b>
+      To continue, please check your inbox and verify your email address.<br><br>
+      Dont receive the email? <a href="http://google.com">Resend email</a>
+    </p>
   </div>
   @include('emails/partials/help')
 </div>
