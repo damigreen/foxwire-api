@@ -4,8 +4,25 @@ import LoginValidator from 'App/Validators/Auth/LoginValidator';
 import { Exception } from "@poppinss/utils";
 
 
-
 class OAuthsController {
+    async index({ view, response }) {
+        const html = view.render("emails/people/welcome", { user: { email: "fashfired@gmail.com", phone: "07061935742" } })
+        // return html;
+        return response.json({ message: "God is good" })
+    }
+
+    // ! bug
+    // dissable route to debug
+    async redirect({ auth, response }) {
+        response.status(401).json({
+            "errors": [
+                {
+                    "message": "E_UNAUTHORIZED_ACCESS: Unauthorized access"
+                }
+            ]
+        })
+    }
+
     async login({ auth, request, response }) {
         const payload = await request.validate(LoginValidator);
         const { uniq_id, password } = payload
