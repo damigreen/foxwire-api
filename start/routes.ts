@@ -20,19 +20,18 @@
 
 import Route from '@ioc:Adonis/Core/Route'
 
-Route.get('/', async ({ view }) => {
-  const html = view.render("emails/people/welcome", { user: { email: "fashfired@gmail.com", phone: "07061935742" } })
-  // console.log(
-  //   true
-  // );
-  // return { message: 'God is good' }
-  return html;
-})
 
+
+/**
+ * Auth
+ */
 Route.group(() => {
+  Route.get("/", "OAuthsController.index")
+  Route.get("/login", "OAuthsController.redirect")
   Route.post('oauth/login', 'OAuthsController.login')
-  Route.post('oauth/logout', 'OAuthsController.logout')
-  // Route.post('password-change', 'PasswordChangeController').middleware(['auth'])
+  Route.post('oauth/logout', 'OAuthsController.logout').middleware(["auth"])
+
+  Route.post("password/send-reset-code", "PasswordController.sendCode")
 })
   .namespace("App/Controllers/Http/Auth")
 
@@ -41,5 +40,7 @@ Route.group(() => {
  */
 Route.group(() => {
   Route.resource("users", "UsersController").apiOnly()
+  Route.resource("roles", "RolesController").only(["index"])
 })
   .namespace("App/Controllers/Http/People")
+  .middleware(['auth'])
