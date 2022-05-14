@@ -5,7 +5,7 @@ import StoreValidator from "App/Validators/People/User/StoreValidator";
 import Create from "App/Repos/People/User/CreateUser";
 
 export default class UsersController {
-    async index({ request, response }: HttpContextContract) {
+    async index({ auth, request, response, ...options }: HttpContextContract) {
         var {
             associations = [],
             roles = [],
@@ -20,9 +20,13 @@ export default class UsersController {
 
         for (const association of associations) query.preload(association);
 
-        return response.json({
-            status: true,
-        })
+        // if (typeof search !== "undefined") {
+        //     query.apply((scopes) => scopes.search(search));
+        //   }
+
+        const results = await query.paginate(page, perPage)
+
+        return response.json(results)
     }
 
     async store({ request, response }: HttpContextContract) {
@@ -72,14 +76,15 @@ export default class UsersController {
         })
     }
 
-    async destroy({ auth, response, params }) {
+    async destroy({ response, params }) {
         let user = await User.query()
             .where("id", params.id)
             .orWhere("phone", params.id)
             .orWhere("email", params.id)
             .firstOrFail()
 
-        await user.delete();
+        user.active = false
+        await user.save()
 
         return response.json({
             status: true,
