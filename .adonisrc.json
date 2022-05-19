@@ -20,7 +20,9 @@
     {
       "file": "./start/events",
       "environment": [
-        "console"
+        "console",
+        "repl",
+        "web"
       ]
     }
   ],
