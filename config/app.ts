@@ -1,4 +1,3 @@
-import { webAppUrl } from './app';
 /**
  * Config source: https://git.io/JfefZ
  *
