@@ -30,6 +30,11 @@ declare module '@ioc:Adonis/Core/Event' {
     /**
      * People
      */
-    "user/created": { user: User }
+    "user/created": { user: User },    
+    
+    /**
+     * Auth
+     */
+    "password/reset-code-generated": { user: User, resetCode: string, type: string }
   }
 }
