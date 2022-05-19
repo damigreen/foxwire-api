@@ -5,6 +5,7 @@ import { webAppUrl } from 'Config/app';
 
 export default class SendWelcomeMail {
     async handle({ user }: EventsList["user/created"]) {
+        console.log(true);
         await Mail.send(message => {
             message
                 .from(mailConfig.sender)
