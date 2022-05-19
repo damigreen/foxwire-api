@@ -30,8 +30,7 @@ Route.group(() => {
   Route.get("/login", "OAuthsController.redirect")
   Route.post('oauth/login', 'OAuthsController.login')
   Route.post('oauth/logout', 'OAuthsController.logout').middleware(["auth"])
-
-  Route.post("password/send-reset-code", "PasswordController.sendCode")
+  Route.post("password/send-reset-code", "PasswordsController.sendCode")
 })
   .namespace("App/Controllers/Http/Auth")
 
