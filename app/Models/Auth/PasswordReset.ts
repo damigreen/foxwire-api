@@ -12,7 +12,7 @@ export default class PasswordReset extends BaseModel {
   public code: string
 
   @column()
-  public used: number
+  public used: boolean
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
