@@ -7,8 +7,9 @@ import { Exception } from "@poppinss/utils";
 class OAuthsController {
     async index({ view, response }) {
         const html = view.render("emails/people/welcome", { user: { email: "fashfired@gmail.com", phone: "07061935742" } })
-        return response.json({ message: "God is good" })
-        // return html;
+        // const html = view.render("emails/auth/verify-email", { user: { email: "fashfired@gmail.com", phone: "07061935742" } })
+        // return response.json({ message: "God is good" })
+        return html;
     }
 
     // ! bug

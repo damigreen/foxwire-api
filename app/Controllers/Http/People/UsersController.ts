@@ -1,4 +1,4 @@
-import { scope } from '@ioc:Adonis/Lucid/Orm';
+import { Exception } from '@poppinss/utils';
 import { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import User from "App/Models/User";
 import UpdateValidator from "App/Validators/People/User/UpdateValidator";
@@ -35,9 +35,14 @@ export default class UsersController {
     }
 
     async store({ request, response }: HttpContextContract) {
-        const payload = await request.validate(StoreValidator);
-
-        const user = await new CreateUser().handle(payload)
+        let user;
+        try {
+            const payload = await request.validate(StoreValidator);
+            user = await new CreateUser().handle(payload)
+        } catch (error) {
+            console.log(error);
+            throw new Exception(error.messages)
+        }
 
         return response.json({
             status: true,

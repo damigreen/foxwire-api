@@ -31,7 +31,7 @@ Route.group(() => {
   Route.post('oauth/login', 'OAuthsController.login')
   Route.post('oauth/logout', 'OAuthsController.logout').middleware(["auth"])
   Route.post("password/send-reset-code", "PasswordsController.sendCode")
-    Route.patch("email/verify/:id", "EmailsController.verify")
+  Route.get("email/verify/:id", "EmailsController.verify")
 })
   .namespace("App/Controllers/Http/Auth")
 
