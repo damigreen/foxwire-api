@@ -1,3 +1,4 @@
+import { scope } from '@ioc:Adonis/Lucid/Orm';
 import { DateTime } from 'luxon'
 import Hash from '@ioc:Adonis/Core/Hash'
 import { column, beforeSave, BaseModel } from '@ioc:Adonis/Lucid/Orm'
@@ -44,6 +45,11 @@ export default class User extends BaseModel {
       user.password = await Hash.make(user.password)
     }
   }
+
+  public static byUser = scope((query) => {
+    // console.log(true);
+    // console.log(search(['Damilola Faseun']));
+  })
 
   public static search = search(["name", "email", "phone", "username"])
 }
