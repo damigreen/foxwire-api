@@ -35,7 +35,6 @@ export default class PasswordsController {
         })
 
         await Event.emit("password/reset-code-generated", { user, resetCode, type })
-        await Event.emit("user/created", { user })
         
         return response.json({
             status: true,
