@@ -15,6 +15,13 @@ export default class EmailsController {
                 .where("id", params.id)
                 .firstOrFail()
 
+            if (user.active == true) {
+                return response.status(400).json({
+                    status: true,
+                    message: "Email already activated"
+                })
+            }
+            
             user.active = true;
             user.save();
         } catch (error) {
@@ -23,7 +30,7 @@ export default class EmailsController {
 
         return response.json({
             status: true,
-            user,
+            message: "Email has been verified"
         })
     }
 }
