@@ -7,8 +7,8 @@ import { Exception } from "@poppinss/utils";
 class OAuthsController {
     async index({ view, response }) {
         const html = view.render("emails/people/welcome", { user: { email: "fashfired@gmail.com", phone: "07061935742" } })
-        // return html;
         return response.json({ message: "God is good" })
+        // return html;
     }
 
     // ! bug
@@ -43,7 +43,7 @@ class OAuthsController {
             token = await auth.use('api').attempt(uniq_id, password);
         } catch (error) {
             console.log(error);
-            throw new Exception("user account has been suspended")
+            throw new Exception("Email has not been activated")
         }
 
         response.json({
