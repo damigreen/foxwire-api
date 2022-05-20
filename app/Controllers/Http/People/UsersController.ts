@@ -1,3 +1,4 @@
+import { scope } from '@ioc:Adonis/Lucid/Orm';
 import { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import User from "App/Models/User";
 import UpdateValidator from "App/Validators/People/User/UpdateValidator";
@@ -20,9 +21,13 @@ export default class UsersController {
 
         for (const association of associations) query.preload(association);
 
-        // if (typeof search !== "undefined") {
-        //     query.apply((scopes) => scopes.search(search));
-        //   }
+        query.apply(scopes => scopes.byUser())
+
+        if (typeof search !== "undefined") {
+            query.apply((scopes) => {
+                scopes.search(search)
+            });
+        }
 
         const results = await query.paginate(page, perPage)
 
