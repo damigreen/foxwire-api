@@ -13,15 +13,14 @@ export default class SendResetCode {
   * [ ] send email logic
  */
     public async handle({ user, resetCode, type }: EventsList["password/reset-code-generated"]) {
-        console.log("user, resetCode, type");
-        console.log(type);
-
-        await Mail.send(message => {
-            message
-                .from(mailConfig.sender)
-                .to("fashfired@gmail.com")
-                .subject("Welcome to Foxwire")
-                .htmlView("emails/people/welcome", { user, webAppUrl })
-        })
+        if (type == "email") {
+            await Mail.send(message => {
+                message
+                    .from(mailConfig.sender)
+                    .to("fashfired@gmail.com")
+                    .subject("Foxwire Password Reset Code")
+                    .htmlView("emails/auth/reset-code", { user, resetCode, webAppUrl })
+            })
+        }
     }
 }
