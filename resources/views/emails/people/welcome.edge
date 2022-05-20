@@ -6,14 +6,11 @@
   <div style="border: 2px solid #4EAF2F; padding: 40px; margin: 40px 0px; color: #636363; font-size: 14px;">
     <div style="font-size: 20px">Welcome {{ user.name }}</div>
     <p style="line-height: 125%; font-size: 14px;"><b>Thank you for joining us at Foxwire</b><br><br>
-      we hope you have a great time with us while we help you make the best financial decisions<br><br>
+      We hope you have a great time with us while we help you make the best financial decisions<br><br>
       Please verify your email address by clicking the button below.<br><br>
     </p>
-    <p>{{webAppUrl}}</p>
-    <button><a href=`${webAppUrl}/email/verify/${user.id}`>Verify</a></button>
-    <button><a href=`http://127.0.0.1:3333/email/verify/1`>Verify</a></button>
-    <form method="get" action="http://127.0.0.1:3333/email/verify/1">
-      <input type="hidden" name="_method" value="put" />
+    <form method="get" action="{{ webAppUrl }}/email/verify/{{ user.id }}">
+      <input type="hidden" name="_method" value="GET" />
       <button type="submit">Verify</button>
     </form>
     <p>Dont receive the email? <a href="http://google.com">Resend email</a></p>
