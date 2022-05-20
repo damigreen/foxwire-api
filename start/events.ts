@@ -9,13 +9,14 @@ import Event from '@ioc:Adonis/Core/Event';
 |
 */
 
-// ['Auth/SendResetCode'].forEach(listener => {
-//     Event.on("password/reset-code-generated", listener)
-// })
-// ['People/User/SendWelcomeMail'].forEach(listener => {
-//     Event.on("user/created", listener)
-// })
-
-Event.on("user/created", 'People/User/SendWelcomeMail')
+/**
+ * Auth
+ */
 Event.on("password/reset-code-generated", 'Auth/SendResetCode')
+Event.on("email/verify-email", 'Auth/VerifyEmail')
+
+/**
+ * People
+ */
+Event.on("user/created", 'People/User/SendWelcomeMail')
 
