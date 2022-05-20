@@ -28,8 +28,7 @@ export default class StoreValidator {
     name: schema.string(),
     gender: schema.string.optional(),
     email: schema.string({}, [rules.requiredIfNotExists('phone'), rules.email()]),
-    // phone: schema.string({}, [rules.requiredIfNotExists('email'), rules.mobile({ locales: ["en-NG", "en-US"] }), rules.unique({
-    phone: schema.string({}, [rules.requiredIfNotExists('email'), rules.mobile()]),
+    phone: schema.string({}, [rules.requiredIfNotExists('email'), rules.mobile({ locale: ["en-NG", "en-US"] })]),
     password: schema.string.optional(),
     username: schema.string.optional(),
     roles: schema.array.optional().members(schema.string())
