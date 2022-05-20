@@ -1,0 +1,15 @@
+@layout('emails/layout')
+
+@section('body')
+<div style="padding: 60px 70px; border-top: 1px solid rgba(0,0,0,0.05);">
+  <h1 style="margin-top: 0px;">Hi {{ user.name }},</h1>
+  <div style="color: #636363; font-size: 14px;">You recently requested to reset your Foxwore account password.
+    Your password reset code is: <b>{{ resetCode }}</b>
+
+    <div style="color: #636363; font-size: 14px; margin-top: 30px;">If you did not request a password reset,
+      pelase ignore this email or reply to var us know. This password reset is only valid for the next 30
+      minutes.<br><br>Thanks,<br>Foxwire team</div>
+    @include('emails/partials/help')
+  </div>
+</div>
+@endsection
