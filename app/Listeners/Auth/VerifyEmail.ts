@@ -5,13 +5,13 @@ import Mail from '@ioc:Adonis/Addons/Mail';
 
 
 export default class VerifyEmail {
-    public async handle({ user, resetCode, type }: EventsList["password/reset-code-generated"]) {
+    public async handle({ user }: EventsList["email/verify-email"]) {
         await Mail.send(message => {
             message
                 .from(mailConfig.sender)
                 .to("fashfired@gmail.com")
-                .subject("Welcome to Foxwire")
-                .htmlView("emails/people/welcome", { user, resetCode, webAppUrl })
+                .subject("Email Verification")
+                .htmlView("emails/auth/verify-email", { user, webAppUrl })
         })
     }
 }

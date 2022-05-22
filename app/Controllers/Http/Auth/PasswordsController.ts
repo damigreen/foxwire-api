@@ -1,8 +1,12 @@
+import { Exception } from '@poppinss/utils';
 import Event from '@ioc:Adonis/Core/Event';
 import User from 'App/Models/User';
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import ResetCodeValidator from 'App/Validators/Password/ResetCodeValidator'
 import PasswordReset from 'App/Models/Auth/PasswordReset';
+import passwordResetConfig from 'Config/passwordReset';
+import PasswordResetValidator from 'App/Validators/Auth/PasswordResetValidator';
+// import CtxExtendContract from 'Contracts/ctxExtend';
 
 export default class PasswordsController {
     async sendCode({ request, response }: HttpContextContract) {
@@ -35,10 +39,64 @@ export default class PasswordsController {
         })
 
         await Event.emit("password/reset-code-generated", { user, resetCode, type })
-        
+
         return response.json({
             status: true,
             message: `a password reset code has been sent to your ${type}`
+        })
+    }
+
+
+    /**
+     * * Verify and reset
+     * validate api parameters, {code, new_password}
+     * get the code from password_reset table
+     * check if it is expired
+        * delete from table if expired
+        * throw exception
+    * get user from user_id
+    * save password
+    * delete password_reset row
+    * login user
+    * return token as response
+    * 
+     */
+    async verifyAndReset({ auth, request, response }) {
+        let token;
+        try {
+            const payload = await request.validate(PasswordResetValidator)
+
+            const { code, password } = payload;
+
+            let passwordReset = await PasswordReset.findByOrFail("code", code);
+
+            if (
+                Math.abs(passwordReset.createdAt.diffNow().milliseconds) >
+                passwordResetConfig.expiryTime
+
+            ) {
+                passwordReset.delete();
+                throw new Exception("reset code has expired");
+            }
+
+
+            let user = await User.findByOrFail("id", passwordReset.userId)
+
+            user.password = password;
+            await user.save();
+
+            passwordReset.delete()
+
+
+            token = await auth.use('api').login(user)
+
+        } catch (error) {
+            throw new Exception(error, 400);
+        }
+
+        return response.json({
+            status: true,
+            token
         })
     }
 }
