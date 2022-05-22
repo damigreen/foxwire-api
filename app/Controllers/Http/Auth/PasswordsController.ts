@@ -1,3 +1,4 @@
+import { schema } from '@ioc:Adonis/Core/Validator';
 import { Exception } from '@poppinss/utils';
 import Event from '@ioc:Adonis/Core/Event';
 import User from 'App/Models/User';
@@ -79,14 +80,12 @@ export default class PasswordsController {
                 throw new Exception("reset code has expired");
             }
 
-
             let user = await User.findByOrFail("id", passwordReset.userId)
 
             user.password = password;
             await user.save();
 
-            passwordReset.delete()
-
+            await passwordReset.delete()
 
             token = await auth.use('api').login(user)
 
@@ -97,6 +96,43 @@ export default class PasswordsController {
         return response.json({
             status: true,
             token
+        })
+    }
+
+
+    /**
+     * * Change
+     * validate api parameters, {code, new_password}
+     * get the code from password_reset table
+     * check if it is expired
+        * delete from table if expired
+        * throw exception
+    * get user from user_id
+    * save password
+    * delete password_reset row
+    * login user
+    * return token as response
+    * 
+     */
+    async change({ auth, request, response }) {
+        const payload = await request.validate({
+            schema: schema.create({
+                password: schema.string()
+            })
+        })
+
+        const { password } = payload;
+
+        
+        const user = await User.findOrFail(auth.user.id)
+
+        user.password = password;
+
+        await user.save();
+
+        return response.json({
+            status: true,
+            message: "password changed successfully"
         })
     }
 }
