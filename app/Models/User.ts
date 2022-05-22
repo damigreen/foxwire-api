@@ -1,8 +1,9 @@
-import { scope } from '@ioc:Adonis/Lucid/Orm';
+import { scope, manyToMany, ManyToMany } from '@ioc:Adonis/Lucid/Orm';
 import { DateTime } from 'luxon'
 import Hash from '@ioc:Adonis/Core/Hash'
 import { column, beforeSave, BaseModel } from '@ioc:Adonis/Lucid/Orm'
 import { search } from 'App/Helpers/Model';
+import Role from './People/Role';
 
 
 export default class User extends BaseModel {
@@ -46,6 +47,16 @@ export default class User extends BaseModel {
     }
   }
 
+  /**
+   * Relationships
+   */
+   @manyToMany(() => Role)
+   public roles: ManyToMany<typeof Role>
+
+  
+  /**
+   * Scopes
+   */
   public static byUser = scope((query) => {
     // console.log(true);
     // console.log(search(['Damilola Faseun']));
