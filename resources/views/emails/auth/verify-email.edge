@@ -2,14 +2,18 @@
 
 @section('body')
 <div style="padding: 60px 70px; border-top: 1px solid rgba(0,0,0,0.05);">
-  <h1 style="margin-top: 0px;">Hi {{ user.name }},</h1>
-  <div style="color: #636363; font-size: 14px;">You recently requested to reset your Foxwire account password.
-    Your password reset code is: <b>{{ resetCode }}</b>
-
-    <div style="color: #636363; font-size: 14px; margin-top: 30px;">If you did not request a password reset,
-      pelase ignore this email or reply to var us know. This password reset is only valid for the next 30
-      minutes.<br><br>Thanks,<br>Foxwire team</div>
-    @include('emails/partials/help')
+  <h1 style="margin-top: 0px;">Email Verification</h1>
+  <div style="border: 2px solid #4EAF2F; padding: 40px; margin: 40px 0px; color: #636363; font-size: 14px;">
+    <div style="font-size: 20px">Hello {{ user.name }}</div>
+    <p style="line-height: 125%; font-size: 14px;">
+      Please verify your email address by clicking the button below.<br><br>
+    </p>
+    <form method="get" action="{{ webAppUrl }}/email/verify/{{ user.id }}">
+      <input type="hidden" name="_method" value="GET" />
+      <button type="submit">Verify</button>
+    </form>
+    <p>Dont receive the email? <a href="http://google.com">Resend email</a></p>
   </div>
+  @include('emails/partials/help')
 </div>
 @endsection

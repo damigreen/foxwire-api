@@ -35,6 +35,7 @@ declare module '@ioc:Adonis/Core/Event' {
     /**
      * Auth
      */
+      "email/verify-email": { user: User }
     "password/reset-code-generated": { user: User, resetCode: string, type: string }
   }
 }
