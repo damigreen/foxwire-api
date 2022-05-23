@@ -31,8 +31,8 @@ export default class UpdateValidator {
     password: schema.string.optional(),
     username: schema.string.optional(),
     active: schema.boolean.optional(),
-    // attached_role_ids: schema.array.optional().members(schema.number()),
-    // detached_role_ids: schema.array.optional().members(schema.number()),
+    attached_role_ids: schema.array.optional().members(schema.number()),
+    detached_role_ids: schema.array.optional().members(schema.number()),
   })
 
   /**

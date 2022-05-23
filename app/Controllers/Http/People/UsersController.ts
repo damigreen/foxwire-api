@@ -3,7 +3,8 @@ import { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import User from "App/Models/User";
 import UpdateValidator from "App/Validators/People/User/UpdateValidator";
 import StoreValidator from "App/Validators/People/User/StoreValidator";
-import CreateUser from "App/Repos/People/User/CreateUser";
+import Create from "App/Repos/People/User/Create";
+import Update from 'App/Repos/People/User/Update';
 
 export default class UsersController {
     async index({ auth, request, response, ...options }: HttpContextContract) {
@@ -38,10 +39,10 @@ export default class UsersController {
         let user;
         try {
             const payload = await request.validate(StoreValidator);
-            user = await new CreateUser().handle(payload)
+            user = await new Create().handle(payload)
         } catch (error) {
             console.log(error);
-            throw new Exception(error.messages)
+            throw new Exception(error)
         }
 
         return response.json({
@@ -72,18 +73,15 @@ export default class UsersController {
 
     async update({ request, response, params }) {
         const payload = await request.validate(UpdateValidator);
-        let user = await User.findOrFail(params.id);
 
-        for (const key in payload) {
-            user[key] = typeof payload[key] != undefined ? payload[key] : user[key];
-        }
-
-        await user.save();
+        let user = await new Update().handle({ id: params.id, ...payload })
 
         return response.json({
             status: true,
             user,
         })
+
+
     }
 
     async destroy({ response, params }) {
