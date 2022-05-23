@@ -21,10 +21,10 @@ export default class Update {
         }
 
         if (payload.attached_role_ids) await user.related("roles").sync(payload.attached_role_ids)
-
         if (payload.detached_role_ids) await user.related("roles").detach(payload.detached_role_ids)
 
         await user.save();
+
         return user;
     }
 }
