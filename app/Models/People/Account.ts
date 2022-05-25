@@ -1,11 +1,14 @@
 import { search } from './../../Helpers/Model';
 import User from 'App/Models/User';
 import { DateTime } from 'luxon'
-import { scope, BaseModel, column, manyToMany, ManyToMany, hasOne, belongsTo, BelongsTo } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, column, belongsTo, BelongsTo } from '@ioc:Adonis/Lucid/Orm'
 
 export default class Account extends BaseModel {
   @column({ isPrimary: true })
   public id: number
+
+  @column()
+  public name: string
 
   @column()
   public accountUniqueId: string
@@ -33,8 +36,4 @@ public user: BelongsTo<typeof User>
 * Scopes
 */
   public static search = search(["name", "accountUniqueId"])
-
-  // public static byUser = scope((query, ) => {
-
-  // })
 }
