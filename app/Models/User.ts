@@ -61,10 +61,10 @@ export default class User extends BaseModel {
   /**
    * Scopes
    */
-  getRoleCodes
   public static byUser = scope((query, user?: User) => {
     const roleCodes = getRoleCodes(user)
-    console.log(roleCodes);
+    if (roleCodes.find(code => code == "administrator")) return query;
+    return query.where("id", user?.id || 0);
   })
 
   public static search = search(["name", "email", "phone", "username"])
