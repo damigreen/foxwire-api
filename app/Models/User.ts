@@ -1,9 +1,11 @@
-import { scope, manyToMany, ManyToMany } from '@ioc:Adonis/Lucid/Orm';
+import { getRoleCodes } from 'App/Helpers/index';
+import { scope, manyToMany, ManyToMany, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm';
 import { DateTime } from 'luxon'
 import Hash from '@ioc:Adonis/Core/Hash'
 import { column, beforeSave, BaseModel } from '@ioc:Adonis/Lucid/Orm'
 import { search } from 'App/Helpers/Model';
-import Role from './People/Role';
+import Role from 'App/Models/People/Role';
+import Account from 'App/Models/People/Account';
 
 
 export default class User extends BaseModel {
@@ -50,17 +52,21 @@ export default class User extends BaseModel {
   /**
    * Relationships
    */
-   @manyToMany(() => Role)
-   public roles: ManyToMany<typeof Role>
+  @manyToMany(() => Role)
+  public roles: ManyToMany<typeof Role>
 
-  
+  @hasMany(() => Account)
+  public accounts: HasMany<typeof Account>
+
   /**
    * Scopes
    */
-  public static byUser = scope((query) => {
-    // console.log(true);
-    // console.log(search(['Damilola Faseun']));
+  getRoleCodes
+  public static byUser = scope((query, user?: User) => {
+    const roleCodes = getRoleCodes(user)
+    console.log(roleCodes);
   })
 
   public static search = search(["name", "email", "phone", "username"])
 }
+
