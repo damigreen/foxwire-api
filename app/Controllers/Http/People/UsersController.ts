@@ -22,7 +22,7 @@ export default class UsersController {
 
         for (const association of associations) query.preload(association);
 
-        query.apply(scopes => scopes.byUser())
+        query.apply(scopes => scopes.byUser(auth.user))
 
         if (typeof search !== "undefined") {
             query.apply((scopes) => {
