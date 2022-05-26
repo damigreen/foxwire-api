@@ -22,9 +22,7 @@ import Route from '@ioc:Adonis/Core/Route'
 
 
 
-/**
- * Auth
- */
+// Auth
 Route.group(() => {
   Route.get("/", "OAuthsController.index")
   Route.get("/login", "OAuthsController.redirect")
@@ -37,12 +35,13 @@ Route.group(() => {
 })
   .namespace("App/Controllers/Http/Auth")
 
-/**
- * People
- */
+// People
 Route.group(() => {
   Route.resource("users", "UsersController").apiOnly()
   Route.resource("roles", "RolesController").only(["index"])
+  Route.resource("accounts", "AccountsController")
+  Route.post("accounts/change-name", "AccountsController.changeName")
+  Route.resource("customers", "CustomersController")
 })
   .namespace("App/Controllers/Http/People")
   .middleware(['auth'])
