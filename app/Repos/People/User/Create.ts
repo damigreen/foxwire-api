@@ -1,3 +1,4 @@
+import CreateCustomer from 'App/Repos/People/Customer/Create';
 import CreateAccount from 'App/Repos/People/Account/Create';
 import { hashCode } from './../../../Helpers/index';
 import Role from 'App/Models/People/Role';
@@ -18,27 +19,24 @@ export default class Create {
             password
         })
 
-        let roleIds = (await Role.query().whereIn("code", roles)).map(role => role.id)
+        let roleQuery = await Role.query().whereIn("code", roles)
+        let roleIds = roleQuery.map(role => role.id)
 
         await user.related("roles").attach(roleIds)
 
         const account_unique_id = hashCode(user.name)
 
-        // const userAccount = await user.related("accounts").create({
-        //     name: username + account_unique_id,
-        //     accountUniqueId: account_unique_id,
-        //     userId: user.id,
-        //     accountTypeId: 1,
-        // })
         const accountName = username + account_unique_id
         const accountData = { name: accountName, userId: user.id, accountTypeId: 1 }
+
+        const userId = user.id
         await new CreateAccount().handle(accountData)
+        await new CreateCustomer().handle({ userId })
 
         await user.preload('accounts');
 
         Event.emit("user/created", { user })
 
-        // return { user, userAccount };
         return user;
     }
 }
