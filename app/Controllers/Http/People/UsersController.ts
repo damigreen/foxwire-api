@@ -41,7 +41,6 @@ export default class UsersController {
             const payload = await request.validate(StoreValidator);
             user = await new Create().handle(payload)
         } catch (error) {
-            console.log(error);
             throw new Exception(error)
         }
 
@@ -80,15 +79,14 @@ export default class UsersController {
             status: true,
             user,
         })
-
-
     }
 
-    async destroy({ response, params }) {
+    async destroy({ auth, response, params }) {
         let user = await User.query()
             .where("id", params.id)
             .orWhere("phone", params.id)
             .orWhere("email", params.id)
+            .apply((scopes) => scopes.byUser(auth.user))
             .firstOrFail()
 
         user.active = false
@@ -96,7 +94,7 @@ export default class UsersController {
 
         return response.json({
             status: true,
-            user,
+            message: "success"
         })
     }
 }
