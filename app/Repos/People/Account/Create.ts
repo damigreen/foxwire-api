@@ -24,7 +24,6 @@ export default class Create {
             await account.preload("user")
 
         } catch (error) {
-            console.log(error);
             throw new Exception(error)
         }
 
