@@ -12,8 +12,6 @@ class OAuthsController {
         return html;
     }
 
-    // ! bug
-    // dissable route to debug
     async redirect({ auth, response }) {
         response.status(401).json({
             "errors": [
@@ -43,7 +41,6 @@ class OAuthsController {
 
             token = await auth.use('api').attempt(uniq_id, password);
         } catch (error) {
-            console.log(error);
             throw new Exception("Email has not been activated")
         }
 
