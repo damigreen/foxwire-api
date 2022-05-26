@@ -2,10 +2,11 @@ import { getRoleCodes } from 'App/Helpers/index';
 import { scope, manyToMany, ManyToMany, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm';
 import { DateTime } from 'luxon'
 import Hash from '@ioc:Adonis/Core/Hash'
-import { column, beforeSave, BaseModel } from '@ioc:Adonis/Lucid/Orm'
+import { column, beforeSave, BaseModel, hasOne, HasOne } from '@ioc:Adonis/Lucid/Orm'
 import { search } from 'App/Helpers/Model';
 import Role from 'App/Models/People/Role';
 import Account from 'App/Models/People/Account';
+import Customer from 'App/Models/People/Customer';
 
 
 export default class User extends BaseModel {
@@ -57,6 +58,9 @@ export default class User extends BaseModel {
 
   @hasMany(() => Account)
   public accounts: HasMany<typeof Account>
+
+  @hasOne(() => Customer)
+  public customer: HasOne<typeof Account>
 
   /**
    * Scopes
