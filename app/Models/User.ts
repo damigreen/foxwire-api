@@ -73,4 +73,3 @@ export default class User extends BaseModel {
 
   public static search = search(["name", "email", "phone", "username"])
 }
-
