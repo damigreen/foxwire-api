@@ -6,12 +6,10 @@ import { Exception } from '@adonisjs/core/build/standalone';
 
 
 export default class Create {
-    async handle({ name, userId, accountTypeId }: typeof StoreValidator.parsedSchema.props) {
+    async handle({ name, userId, accountTypeId, accountUniqueId }: typeof StoreValidator.parsedSchema.props) {
         let account;
         try {
             const user = await User.findOrFail(userId)
-
-            const accountUniqueId = hashCode(user.name)
 
             account = await Account.create({
                 name: name,

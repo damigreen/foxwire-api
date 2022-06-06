@@ -5,6 +5,7 @@ const schemaToCreate = {
   name: schema.string({}, [rules.unique({ table: 'accounts', column: 'name' })]),
   userId: schema.number(),
   accountTypeId: schema.number(),
+  accountUniqueId: schema.string(),
 }
 
 export default class StoreValidator {
