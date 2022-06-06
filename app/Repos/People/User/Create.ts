@@ -7,7 +7,7 @@ import Event from "@ioc:Adonis/Core/Event";
 
 
 export default class Create {
-    async handle({ name, gender, email, password, roles, phone, ...params }) {
+    async handle({ name, gender, email, password, roles, phone }) {
 
         const username = name.slice(0, name.indexOf(' '))
 
@@ -16,26 +16,27 @@ export default class Create {
             username,
             email,
             phone,
+            gender,
             password
         })
 
-        let roleQuery = await Role.query().whereIn("code", roles)
-        let roleIds = roleQuery.map(role => role.id)
+        let roleQuery = await Role.query().whereIn("code", roles);
+        let roleIds = roleQuery.map(role => role.id);
 
-        await user.related("roles").attach(roleIds)
+        await user.related("roles").attach(roleIds);
 
-        const account_unique_id = hashCode(user.name)
+        const accountUniqueId = hashCode(12);
 
-        const accountName = username + account_unique_id
-        const accountData = { name: accountName, userId: user.id, accountTypeId: 1 }
+        const accountName = username + " - " + accountUniqueId;
+        const accountData = { name: accountName, userId: user.id, accountTypeId: 1, accountUniqueId };
 
-        const userId = user.id
-        await new CreateAccount().handle(accountData)
-        await new CreateCustomer().handle({ userId })
+        const userId = user.id;
+        await new CreateAccount().handle(accountData);
+        await new CreateCustomer().handle({ userId });
 
         await user.preload('accounts');
 
-        Event.emit("user/created", { user })
+        Event.emit("user/created", { user });
 
         return user;
     }
