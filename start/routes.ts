@@ -21,7 +21,6 @@
 import Route from '@ioc:Adonis/Core/Route'
 
 
-
 // Auth
 Route.group(() => {
   Route.get("/", "OAuthsController.index")
@@ -45,3 +44,9 @@ Route.group(() => {
 })
   .namespace("App/Controllers/Http/People")
   .middleware(['auth'])
+
+// WebHooks
+Route.post('/client-request/move-to-scoping', 'WebHooksController.moveToScoping')
+Route.post('/request/approved', 'WebHooksController.approve')
+Route.post('/request/completed', 'WebHooksController.completed')
+Route.post('/request/started', 'WebHooksController.started')
