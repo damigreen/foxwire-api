@@ -8,7 +8,6 @@ export default class DatabaseSeeder extends BaseSeeder {
   public async run() {
     await RoleSeeder.run();
     await AccountTypeSeeeder.run();
-    await AccountTypeSeeeder.run();
     await UserSeeder.run();
   }
 }
