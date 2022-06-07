@@ -5,6 +5,15 @@ export default class SystemAlert extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
+  @column()
+  public name: string
+
+  @column()
+  public content: string
+
+  @column()
+  public accountId: number
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 
