@@ -1,4 +1,6 @@
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, column, manyToMany, ManyToMany } from '@ioc:Adonis/Lucid/Orm'
+import User from 'App/Models/User';
+import SystemFunction from '../System/SystemFunction';
 
 export default class Role extends BaseModel {
   @column({ isPrimary: true })
@@ -15,4 +17,11 @@ export default class Role extends BaseModel {
 
   @column()
   public active: boolean
+
+  // Relationships
+  @manyToMany(() => User, { pivotTable: 'user_role' })
+  public users: ManyToMany<typeof User>
+
+  @manyToMany(() => SystemFunction, { pivotTable: 'system_function_role' })
+  public systemFunctions: ManyToMany<typeof SystemFunction>
 }
