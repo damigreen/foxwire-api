@@ -1,22 +1,22 @@
 import BaseSchema from "@ioc:Adonis/Lucid/Schema";
 
-export default class WebHookWebHookHeaders extends BaseSchema {
-  protected tableName = "web_hook_web_hook_header";
+export default class SystemFunctionRoles extends BaseSchema {
+  protected tableName = "system_function_role";
 
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments("id");
       table
-        .integer("web_hook_id")
+        .integer("system_function_id")
         .unsigned()
         .references("id")
-        .inTable("web_hooks")
+        .inTable("system_functions")
         .onDelete("CASCADE");
       table
-        .integer("web_hook_header_id")
+        .integer("role_id")
         .unsigned()
         .references("id")
-        .inTable("web_hook_headers")
+        .inTable("roles")
         .onDelete("CASCADE");
     });
   }
