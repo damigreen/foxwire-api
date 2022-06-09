@@ -18,35 +18,42 @@
 |
 */
 
-import Route from '@ioc:Adonis/Core/Route'
-
+import Route from "@ioc:Adonis/Core/Route";
 
 // Auth
 Route.group(() => {
-  Route.get("/", "OAuthsController.index")
-  Route.get("/login", "OAuthsController.redirect")
-  Route.post('oauth/login', 'OAuthsController.login')
-  Route.post('oauth/logout', 'OAuthsController.logout').middleware(["auth"])
-  Route.post("password/send-reset-code", "PasswordsController.sendCode")
-  Route.post("password/verify-and-reset", "PasswordsController.verifyAndReset")
-  Route.post("password/change/", "PasswordsController.change")
-  Route.get("email/verify/:id", "EmailsController.verify")
-})
-  .namespace("App/Controllers/Http/Auth")
+  Route.get("/", "OAuthsController.index");
+  Route.get("/login", "OAuthsController.redirect");
+  Route.post("oauth/login", "OAuthsController.login");
+  Route.post("oauth/logout", "OAuthsController.logout").middleware(["auth"]);
+  Route.post("password/send-reset-code", "PasswordsController.sendCode");
+  Route.post("password/verify-and-reset", "PasswordsController.verifyAndReset");
+  Route.post("password/change/", "PasswordsController.change");
+  Route.get("email/verify/:id", "EmailsController.verify");
+}).namespace("App/Controllers/Http/Auth");
 
 // People
 Route.group(() => {
-  Route.resource("users", "UsersController").apiOnly()
-  Route.resource("roles", "RolesController").only(["index"])
-  Route.resource("accounts", "AccountsController")
-  Route.post("accounts/change-name", "AccountsController.changeName")
-  Route.resource("customers", "CustomersController")
+  Route.resource("users", "UsersController").apiOnly();
+  Route.resource("roles", "RolesController").only(["index"]);
+  Route.resource("accounts", "AccountsController");
+  Route.post("accounts/change-name", "AccountsController.changeName");
+  Route.resource("customers", "CustomersController");
 })
   .namespace("App/Controllers/Http/People")
-  .middleware(['auth'])
+  .middleware(["auth"]);
+
+Route.group(() => {
+  Route.resource("web-hooks", "WebHooksController").apiOnly();
+})
+  .namespace("App/Controllers/Http/System")
+  .middleware(["auth"]);
 
 // WebHooks
-Route.post('/client-request/move-to-scoping', 'WebHooksController.moveToScoping')
-Route.post('/request/approved', 'WebHooksController.approve')
-Route.post('/request/completed', 'WebHooksController.completed')
-Route.post('/request/started', 'WebHooksController.started')
+Route.post(
+  "/client-request/move-to-scoping",
+  "WebHooksController.moveToScoping"
+);
+Route.post("/request/approved", "WebHooksController.approve");
+Route.post("/request/completed", "WebHooksController.completed");
+Route.post("/request/started", "WebHooksController.started");
