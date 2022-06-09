@@ -72,6 +72,7 @@ export default class AuthMiddleware {
     const guards = customGuards.length ? customGuards : [auth.name]
     await this.authenticate(auth, guards)
     await auth.user?.preload("roles")
+    await auth.user?.preload("accounts")
     await next()
   }
 }

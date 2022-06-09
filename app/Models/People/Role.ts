@@ -23,5 +23,5 @@ export default class Role extends BaseModel {
   public users: ManyToMany<typeof User>
 
   @manyToMany(() => SystemFunction, { pivotTable: 'system_function_role' })
-  public systemFunctions: ManyToMany<typeof SystemFunction>
+  public functions: ManyToMany<typeof SystemFunction>
 }

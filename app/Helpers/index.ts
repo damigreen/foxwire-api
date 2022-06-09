@@ -2,6 +2,7 @@ import User from 'App/Models/User';
 
 
 export const getRoleCodes = (user?: User) => {
+    console.log(user?.toJSON());
     return user?.toJSON().roles.map(role => role.code) || [];
 }
 
