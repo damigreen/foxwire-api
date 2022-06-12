@@ -45,15 +45,16 @@ Route.group(() => {
 
 Route.group(() => {
   Route.resource("web-hooks", "WebHooksController").apiOnly();
+  Route.resource("web-hook-headers", "WebHookHeadersController").apiOnly();
 })
   .namespace("App/Controllers/Http/System")
   .middleware(["auth"]);
 
-// WebHooks
-Route.post(
-  "/client-request/move-to-scoping",
-  "WebHooksController.moveToScoping"
-);
-Route.post("/request/approved", "WebHooksController.approve");
-Route.post("/request/completed", "WebHooksController.completed");
-Route.post("/request/started", "WebHooksController.started");
+// // WebHooks
+// Route.post(
+//   "/client-request/move-to-scoping",
+//   "WebHooksController.moveToScoping"
+// );
+// Route.post("/request/approved", "WebHooksController.approve");
+// Route.post("/request/completed", "WebHooksController.completed");
+// Route.post("/request/started", "WebHooksController.started");
