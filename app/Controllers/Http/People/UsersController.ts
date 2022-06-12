@@ -6,8 +6,20 @@ import StoreValidator from "App/Validators/People/User/StoreValidator";
 import Create from "App/Repos/People/User/Create";
 import Update from "App/Repos/People/User/Update";
 
+/**
+ * Resourceful controller for interacting with users
+ */
 export default class UsersController {
-  async index({ auth, request, response, ...options }: HttpContextContract) {
+  /**
+   * Show a list of all users.
+   * GET users
+   *
+   * @param {object} ctx
+   * @param {Auth} ctx.auth
+   * @param {Request} ctx.request
+   * @param {Response} ctx.response
+   */
+  async index({ auth, request, response }: HttpContextContract) {
     var {
       associations = [],
       roles = [],
@@ -35,6 +47,14 @@ export default class UsersController {
     return response.json(results);
   }
 
+  /**
+   * Create/save a new user.
+   * POST users
+   *
+   * @param {object} ctx
+   * @param {Request} ctx.request
+   * @param {Response} ctx.response
+   */
   async store({ request, response }: HttpContextContract) {
     let user;
     try {
@@ -50,6 +70,15 @@ export default class UsersController {
     });
   }
 
+  /**
+   * Display a single user.
+   * GET users/:id
+   *
+   * @param {object} ctx
+   * @param {Request} ctx.request
+   * @param {Response} ctx.response
+   * @param {Params} ctx.params
+   */
   async show({ request, response, params }) {
     const { associations = [] } = request.get();
 
@@ -70,6 +99,14 @@ export default class UsersController {
     });
   }
 
+  /**
+   * Update systementity details.
+   * PUT or PATCH users/:id
+   *
+   * @param {object} ctx
+   * @param {Request} ctx.request
+   * @param {Response} ctx.response
+   */
   async update({ request, response, params }) {
     const payload = await request.validate(UpdateValidator);
 
@@ -81,6 +118,15 @@ export default class UsersController {
     });
   }
 
+  /**
+   * Delete a user with id.
+   * DELETE users/:id
+   *
+   * @param {object} ctx
+   * @param {Auth} ctx.auth
+   * @param {Params} ctx.params
+   * @param {Response} ctx.response
+   */
   async destroy({ auth, response, params }) {
     let user = await User.query()
       .where("id", params.id)

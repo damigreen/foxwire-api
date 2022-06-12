@@ -34,7 +34,7 @@ export default class WebHookHeader extends BaseModel {
 
   @manyToMany(() => WebHook)
   public webHooks: ManyToMany<typeof WebHook>;
-  
+
   // Scopes
   public static byUser = scope((query, user?: User) => {
     const roleCodes = getRoleCodes(user);

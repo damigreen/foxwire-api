@@ -1,7 +1,19 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import WebHookHeader from "App/Models/System/WebHookHeader";
 
+/**
+ * Resourceful controller for interacting with webhookheaders
+ */
 export default class WebHookHeadersController {
+  /**
+   * Show a list of all webhookheaders.
+   * GET webhookheaders
+   *
+   * @param {object} ctx
+   * @param {Auth} ctx.auth
+   * @param {Request} ctx.request
+   * @param {Response} ctx.response
+   */
   public async index({ auth, request, response }: HttpContextContract) {
     var {
       associations = [],
@@ -22,6 +34,15 @@ export default class WebHookHeadersController {
     return response.json(results);
   }
 
+  /**
+   * Display a single webhookheader.
+   * GET webhookheaders/:id
+   *
+   * @param {object} ctx
+   * @param {Request} ctx.request
+   * @param {Response} ctx.response
+   * @param {Params} ctx.params
+   */
   public async show({ params, request, response }: HttpContextContract) {
     const { associations = [] } = request.get();
 
@@ -37,6 +58,14 @@ export default class WebHookHeadersController {
     });
   }
 
+  /**
+   * Delete a webhookheader with id.
+   * DELETE webhookheaders/:id
+   *
+   * @param {object} ctx
+   * @param {Params} ctx.params
+   * @param {Response} ctx.response
+   */
   public async destroy({ params, response }: HttpContextContract) {
     let webHookHeader = WebHookHeader.query().where("id", params.id);
 
