@@ -46,6 +46,10 @@ Route.group(() => {
 Route.group(() => {
   Route.resource("web-hooks", "WebHooksController").apiOnly();
   Route.resource("web-hook-headers", "WebHookHeadersController").apiOnly();
+  Route.resource("web-hook-verbs", "WebHookVerbsController").apiOnly();
+  Route.resource("system-entities", "SystemEntitiesController").apiOnly();
+  Route.resource("system-functions", "SystemFunctionController").apiOnly();
+  Route.resource("system-event-triggers", "SystemEventTriggerController").apiOnly();
 })
   .namespace("App/Controllers/Http/System")
   .middleware(["auth"]);
