@@ -39,6 +39,7 @@ Route.group(() => {
   Route.resource("accounts", "AccountsController");
   Route.post("accounts/change-name", "AccountsController.changeName");
   Route.resource("customers", "CustomersController");
+  Route.resource("transactions", "TransactionsController");
 })
   .namespace("App/Controllers/Http/People")
   .middleware(["auth"]);
@@ -49,16 +50,10 @@ Route.group(() => {
   Route.resource("web-hook-verbs", "WebHookVerbsController").apiOnly();
   Route.resource("system-entities", "SystemEntitiesController").apiOnly();
   Route.resource("system-functions", "SystemFunctionController").apiOnly();
-  Route.resource("system-event-triggers", "SystemEventTriggerController").apiOnly();
+  Route.resource(
+    "system-event-triggers",
+    "SystemEventTriggerController"
+  ).apiOnly();
 })
   .namespace("App/Controllers/Http/System")
   .middleware(["auth"]);
-
-// // WebHooks
-// Route.post(
-//   "/client-request/move-to-scoping",
-//   "WebHooksController.moveToScoping"
-// );
-// Route.post("/request/approved", "WebHooksController.approve");
-// Route.post("/request/completed", "WebHooksController.completed");
-// Route.post("/request/started", "WebHooksController.started");
