@@ -1,5 +1,4 @@
 import { getRoleCodes } from "App/Helpers/index";
-// import { scope, manyToMany, ManyToMany, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm';
 import { DateTime } from "luxon";
 import Hash from "@ioc:Adonis/Core/Hash";
 import {
@@ -13,11 +12,14 @@ import {
   ManyToMany,
   hasMany,
   HasMany,
+  hasManyThrough,
+  HasManyThrough,
 } from "@ioc:Adonis/Lucid/Orm";
 import { search } from "App/Helpers/Model";
 import Role from "App/Models/People/Role";
 import Account from "App/Models/People/Account";
 import Customer from "App/Models/People/Customer";
+import Transaction from "App/Models/People/Transaction";
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
@@ -71,6 +73,9 @@ export default class User extends BaseModel {
 
   @hasOne(() => Customer)
   public customer: HasOne<typeof Customer>;
+
+  @hasManyThrough([() => Transaction, () => Account])
+  public transactions: HasManyThrough<typeof Transaction>;
 
   /**
    * Scopes
