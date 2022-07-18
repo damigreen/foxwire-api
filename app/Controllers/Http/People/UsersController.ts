@@ -22,7 +22,7 @@ export default class UsersController {
   async index({ auth, request, response }: HttpContextContract) {
     var {
       associations = [],
-      roles = [],
+      // roles = [],
       search,
       page = 1,
       perPage = 100,
