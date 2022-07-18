@@ -1,5 +1,4 @@
 import Account from 'App/Models/People/Account';
-import { hashCode } from 'App/Helpers/index';
 import User from "App/Models/User";
 import StoreValidator from 'App/Validators/People/Account/StoreValidator';
 import { Exception } from '@adonisjs/core/build/standalone';
